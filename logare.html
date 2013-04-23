@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<script type="text/javascript">
+function OnSubmitForm(formdata)
+{
+	var username = formdata.user.value;
+	var password = formdata.pass.value;
+	
+	if(0 == username.length || 0 == password.length)
+	{
+		alert('Username and/or password not typed. Please fill in!');
+		return false;
+	}
+	
+	var xmlHttp=new XMLHttpRequest();
+    var url="valideazaLogare.php?user=" + username + "&pass=" + password;
+    xmlHttp.open("GET",url,false);
+    xmlHttp.send();
+	
+	if(0 == xmlHttp.responseText.length)
+		return true;
+	
+	document.getElementById("txtInfo").innerHTML = "<br>" + xmlHttp.responseText;
+	return false;
+}
+</script>
+<style type="text/css">
+<!--
+label
+{
+width: 4em;
+float: left;
+text-align: right;
+margin-right: 0.5em;
+display: block
+}
+
+.submit input
+{
+margin-left: 4.5em;
+} 
+input
+{
+color: #000;
+background: #CEF6CE;
+border: 1px solid #000
+}
+
+.submit input
+{
+color: #000;
+background: #CEF6CE;
+border: 2px outset #d7b9c9
+} 
+fieldset
+{
+border: 1px solid #000;
+width: 20em
+}
+
+legend
+{
+color: #000;
+background: #CEF6CE;
+border: 1px solid #000;
+padding: 2px 6px
+}
+
+.button {
+    border: none;
+    background: url('./login_visiniu.png') no-repeat top left;
+    margin-left: 4.5em;
+	width: 28%;
+	height: 28%;
+}
+-->
+</style>
+</head>
+<body>
+<center>
+	<form method="get" action="logare.php" onsubmit="return OnSubmitForm(this)">
+	<fieldset>
+	<legend>Login form</legend>
+	<p><label for="user">Username</label> <input name="user" type="text" id="Username" /></p>
+	<p><label for="pass">Password</label> <input name="pass" type="password" id="pass" /><br /></p>
+	<input type="image" src="./login_visiniu.png" class="button" /> 
+					  <a href = "creeazaCont.html"> 
+					  <img src="signup_visiniu.png" width="28%" height="28%"/></a><br>
+	<span id="txtInfo" style="color: #800517"></span><br>
+	</fieldset>
+	</form>
+</center>
+</body>
+</html> 

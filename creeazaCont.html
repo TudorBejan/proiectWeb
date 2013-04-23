@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<script type="text/javascript">
+function OnSubmitForm(formdata)
+{
+	var username = formdata.DesiredUsername.value;
+	var password = formdata.Password.value;
+	var rpassword = formdata.Password2.value;
+	var address = formdata.Emailaddress.value;
+	
+	if(0 == username.length || 0 == password.length || 0 == rpassword.length || 0 == address)
+	{
+		alert('Some of the fields are blank. Please fill in!');
+		return false;
+	}
+	
+	if(password != rpassword)
+	{
+		alert('Password missmatch! Please retype!');
+		formdata.Password.value = "";
+		formdata.Password2.value = "";
+		return false;
+	}
+	
+	var xmlHttp=new XMLHttpRequest();
+    var url="valideazaSignUp.php?user=" + username + "&email=" + address;
+    xmlHttp.open("GET",url,false);
+    xmlHttp.send();
+	
+	if(0 == xmlHttp.responseText.length)
+		return true;
+		
+	document.getElementById("txtInfo").innerHTML = "<br>" + xmlHttp.responseText;
+	return false;
+}
+</script>
+<style type="text/css">
+<!--
+label
+{
+width: 8em;
+float: left;
+text-align: right;
+margin-right: 0.0em;
+}
+
+.submit input
+{
+margin-left: 4.5em;
+} 
+input
+{
+color: #000;
+background: #CEF6CE;
+border: 1px solid #000
+}
+
+.submit input
+{
+color: #000;
+background: #CEF6CE;
+border: 2px outset #d7b9c9
+} 
+fieldset
+{
+border: 1px solid #000;
+width: 20em
+}
+
+legend
+{
+color: #000;
+background: #CEF6CE;
+border: 1px solid #000;
+padding: 2px 6px
+}
+
+.button {
+    border: none;
+    background: url('/login_visiniu.png') no-repeat top left;
+    margin-left: 4.5em;
+}
+-->
+</style>
+</head>
+<body>
+<center>
+    <form method="post" action="creeazaCont.php" onsubmit="return OnSubmitForm(this)">
+	<fieldset>
+	<legend>New User</legend>
+	<p><label for="DesiredUsername">Username</label> <input name="DesiredUsername" type="text" id="DesiredUsername" /></p>
+	<p><label for="Password">Password</label> <input name="Password" type="password" id="Password" /></p>
+	<p><label for="Password2">Retype password </label> <input name="Password2" type="password" id="Password2" /></p>
+	<p><label for="Emailaddress">Email</label> <input name="Emailaddress" type="text" id="Emailaddress" /><br/></p>
+	<input type="image" src="signup_visiniu.png" width="28%" height="28%" border="0" class="button"/><br>
+	<span id="txtInfo" style="color: #800517"></span><br>
+	</fieldset>
+	</form>
+</center>
+</body>
+</html> 
